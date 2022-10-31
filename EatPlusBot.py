@@ -42,21 +42,32 @@ class EatPlusBot:
 
         return json.loads(result.content)
 
+    def start_register(self,message):
+
+        print('client message: ' + str(message))
+
+        return "Qual o seu nome?"
+
     def create_answer(self, message, first_message):
 
         print('client message: ' + str(message))
 
-        if first_message == True:
-            return f'Oi! Eu me chamo Rafaela.{os.linesep}Estou aqui pra te ajudar.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir.{os.linesep}Podemos começar, Sim ou não?'
+        if first_message == True or message.lower() in ('oi','Oi','oi.','Oi.','oi!','Oi!'):
+            return f'Eu me chamo Rafaela.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir.{os.linesep}Podemos começar, Sim ou não?'
 
         if message == message in ('sim','s','Sim','sim.','Sim.'):
-            return f'Ok! Como você deseja ser chamado(a)?'
+            return "Qual o seu nome?"
 
         elif message == message in ('não','n','Não','não.','Não.','nao','Nao','Nao.','nao.'):
-            return 'Certo. Quando estiver pronto(a), me diga!'
+            return 'Quando estiver pronto(a), me diga "oi" que eu venho!'
 
         else:
             return 'Se quiser falar comigo, só dizer "oi"!'
+
+    def test(self, message):
+
+        print('client message: ' + str(message))
+
 
     def response(self, answer, chat_id):
 
