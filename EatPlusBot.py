@@ -57,32 +57,27 @@ class EatPlusBot:
 
         if message == message in ('sim','s','Sim','sim.','Sim.'):
 
-            self.response(self,"Qual o seu nome?")
-                self.create_answer(self,"1")
+            self.response("Qual o seu nome?")
+            self.create_answer("1")
 
             return "FINALIZADO"
 
         if message == message in "1":
-            self.response(self,"Agora qual seu E-mail?")
-             return  self.create_answer(self,"2")
+            self.response("Agora qual seu E-mail?")
+            return self.create_answer("2")
 
         if message == message in "2":
-            self.response(self,"Por fim digite sua Senha")
-                return  self.create_answer(self,"3")
+            self.response("Por fim digite sua Senha")
+            return self.create_answer("3")
 
         if message == message in "3":
             return "Cadastro finalizado com sucesso!"
-
-
 
         elif message == message in ('não','n','Não','não.','Não.','nao','Nao','Nao.','nao.'):
             return 'Quando estiver pronto(a), me diga "oi" que eu venho!'
 
         else:
             return 'Se quiser falar comigo, só dizer "oi"!'
-
-
-
 
     def response(self, answer, chat_id):
 
