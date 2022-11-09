@@ -55,7 +55,7 @@ class EatPlusBot:
         if self.user.id == '':
             if first_message == True or message in ('oi', 'Oi', 'oi.', 'Oi.', 'oi!', 'Oi!') or '/start':
                 self.user.id = 'placeholder'
-                return f'Eu me chamo Rafaela.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir.{os.linesep}Podemos começar?{os.linesep}Sim ou não?'
+                return f'Eu me chamo Rafaela.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir{os.linesep}Podemos começar?{os.linesep}Sim/Não'
             else:
                 return 'Se quiser falar comigo, só dizer "oi"!'
         elif self.user.id == chat_id:
@@ -63,60 +63,60 @@ class EatPlusBot:
 
         if self.user.name == '':
             if message == message in ('sim', 's', 'Sim', 'sim.', 'Sim.','continuar','Continuar'):
-                self.user.name = 'placeholder'
+                self.user.name = 'chat_id'
                 return "Qual o seu nome?"
             elif condition_no:
-                return 'Me avise quando estiver pronto(a)! Só dizer "continuar".'
+                return 'Me avise quando estiver pronto(a)! Só dizer "continuar"'
             else:
                 return f"Poderia verificar sua resposta?"
 
-        if self.user.name == 'placeholder' and self.user.email == '':
+        if self.user.name == 'chat_id' and self.user.email == '':
             self.user.name = message
-            return f"Seu nome será {self.user.name}. Tem certeza? sim, ou não?"
+            return f"Seu nome será {self.user.name}{os.linesep}Tem certeza?{os.linesep}Sim/Não?"
 
-        if self.user.name != 'placeholder' and self.user.email == '':
+        if self.user.name != 'chat_id' and self.user.email == '':
             if condition_yes:
-                self.user.email = 'place@holder.com'
+                self.user.email = 'chat_id'
                 return "Qual o seu email?"
             elif condition_no:
-                self.user.name = 'placeholder'
+                self.user.name = 'chat_id'
                 return "Reescreva seu nome"
             else:
-                return f"Seu nome será {self.user.name}. Tem certeza? sim, ou não?"
+                return f"Seu nome será {self.user.name}{os.linesep}Tem certeza?{os.linesep}Sim/Não"
 
-        if self.user.email == 'place@holder.com' and self.user.name != 'placeholder':
+        if self.user.email == 'chat_id' and self.user.name != 'chat_id':
             if re.fullmatch(regex, message):
                 self.user.email = message
-                return f"Seu email será {self.user.email}. Tem certeza? sim ou não?"
+                return f"Seu email será {self.user.email}{os.linesep}Tem certeza?{os.linesep}Sim/Não"
             else:
                 return "Escreva um email válido"
 
-        if self.user.email != 'place@holder.com' and self.user.password == '':
+        if self.user.email != 'chat_id' and self.user.password == '':
             if condition_yes:
-                self.user.password = 'placeholder'
+                self.user.password = 'chat_id'
                 return "Qual será sua senha? (mínimo de 6 caractéres)"
             elif condition_no:
-                self.user.email = 'place@holder.com'
+                self.user.email = 'chat_id'
                 return "Reescreva seu email"
             else:
-                return f"Seu email será {self.user.email}. Tem certeza? sim ou não?"
+                return f"Seu email será {self.user.email}.{os.linesep}Tem certeza?{os.linesep}Sim/Não"
 
-        if self.user.email != 'place@holder.com' and self.user.name != 'placeholder' and self.user.password == 'placeholder':
+        if self.user.email != 'chat_id' and self.user.name != 'chat_id' and self.user.password == 'chat_id':
             if len(message) >= 6:
                 self.user.password = message
-                return f"Sua senha será {self.user.password}. Tem certeza?{os.linesep}Sim ou não?"
+                return f"Sua senha será {self.user.password}{os.linesep}Tem certeza?{os.linesep}Sim/Não"
             else:
                 return "Escreva uma senha válida"
 
-        if self.user.password != 'placeholder':
+        if self.user.password != 'chat_id':
             if condition_yes:
                 self.user.id = chat_id
                 return f"Cadastro finalizado!{os.linesep}Nome: {self.user.name}{os.linesep}Email: {self.user.email}{os.linesep}Senha: {self.user.password}{os.linesep}"
             elif condition_no:
-                self.user.password = 'placeholder'
+                self.user.password = 'chat_id'
                 return "Reescreva sua senha"
             else:
-                return f"Sua senha será {self.user.password}. Tem certeza?{os.linesep}Sim ou não?"
+                return f"Sua senha será {self.user.password}{os.linesep}Tem certeza?{os.linesep}Sim/Não"
 
     def response(self, answer, chat_id):
 
