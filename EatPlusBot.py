@@ -54,20 +54,19 @@ class EatPlusBot:
 
         if self.user.id == '':
             if first_message == True or message in ('oi', 'Oi', 'oi.', 'Oi.', 'oi!', 'Oi!') or '/start':
-                self.user.id = chat_id
-                return f'Eu me chamo Rafaela.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir.{os.linesep}Podemos começar, Sim ou não?'
-
+                self.user.id = 'placeholder'
+                return f'Eu me chamo Rafaela.{os.linesep}Vou preencher sua ficha pra você, então preciso que você me fale as informações que te pedir.{os.linesep}Podemos começar?{os.linesep}Sim ou não?'
             else:
                 return 'Se quiser falar comigo, só dizer "oi"!'
+        elif self.user.id == chat_id:
+                return f"Olá {self.user.name}. Seu cadastro já foi realizado!"
 
         if self.user.name == '':
             if message == message in ('sim', 's', 'Sim', 'sim.', 'Sim.','continuar','Continuar'):
                 self.user.name = 'placeholder'
                 return "Qual o seu nome?"
-
             elif condition_no:
                 return 'Me avise quando estiver pronto(a)! Só dizer "continuar".'
-
             else:
                 return f"Poderia verificar sua resposta?"
 
@@ -92,29 +91,33 @@ class EatPlusBot:
             else:
                 return "Escreva um email válido"
 
-        if self.user.email != 'place@holder.com':
+        if self.user.email != 'place@holder.com' and self.user.password == '':
             if condition_yes:
+                self.user.password = 'placeholder'
                 return "Qual será sua senha? (mínimo de 6 caractéres)"
             elif condition_no:
                 self.user.email = 'place@holder.com'
                 return "Reescreva seu email"
+            else:
+                return f"Seu email será {self.user.email}. Tem certeza? sim ou não?"
 
-        if self.user.email != 'place@holder.com' and self.user.name != 'placeholder' and self.user.password == '':
+        if self.user.email != 'place@holder.com' and self.user.name != 'placeholder' and self.user.password == 'placeholder':
             if len(message) >= 6:
                 self.user.password = message
-                return f"Sua senha será {self.user.password}. Tem certeza? sim ou não?"
+                return f"Sua senha será {self.user.password}. Tem certeza?{os.linesep}Sim ou não?"
             else:
                 return "Escreva uma senha válida"
 
         if self.user.password != 'placeholder':
             if condition_yes:
-                return "Qual será sua senha? (mínimo de 6 caractéres)"
+                self.user.id = chat_id
+                return f"Cadastro finalizado!{os.linesep}Nome: {self.user.name}{os.linesep}Email: {self.user.email}{os.linesep}Senha: {self.user.password}{os.linesep}"
             elif condition_no:
                 self.user.password = 'placeholder'
                 return "Reescreva sua senha"
+            else:
+                return f"Sua senha será {self.user.password}. Tem certeza?{os.linesep}Sim ou não?"
 
-        if self.user.email != 'place@holder.com' and self.user.name != 'placeholder' and self.user.password != 'placeholder':
-                return
     def response(self, answer, chat_id):
 
         link_req = f'{self.url}sendMessage?chat_id={chat_id}&text={answer}'
